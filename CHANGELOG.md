@@ -1,3 +1,5 @@
+## [0.1.1-2] - 2021-03-08
+* small improvement
 ## [0.1.1-0] - 2021-03-08
 * removed deprecated call on `AnimatedCircularChartState`
 ## [0.1.0] - 2018-08-30
