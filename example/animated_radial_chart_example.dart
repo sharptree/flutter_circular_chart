@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_circular_chart/flutter_circular_chart.dart';
+import 'package:flutter_circular_chart_two/flutter_circular_chart.dart';
 
 void main() {
-  runApp(new MaterialApp(
-    home: new AnimatedRadialChartExample(),
+  runApp(MaterialApp(
+    home: AnimatedRadialChartExample(),
   ));
 }
 
 class AnimatedRadialChartExample extends StatefulWidget {
   @override
-  _AnimatedRadialChartExampleState createState() =>
-      new _AnimatedRadialChartExampleState();
+  _AnimatedRadialChartExampleState createState() => _AnimatedRadialChartExampleState();
 }
 
-class _AnimatedRadialChartExampleState
-    extends State<AnimatedRadialChartExample> {
-  final GlobalKey<AnimatedCircularChartState> _chartKey =
-      new GlobalKey<AnimatedCircularChartState>();
+class _AnimatedRadialChartExampleState extends State<AnimatedRadialChartExample> {
+  final GlobalKey<AnimatedCircularChartState> _chartKey = GlobalKey<AnimatedCircularChartState>();
   final _chartSize = const Size(200.0, 200.0);
 
   double value = 50.0;
@@ -48,9 +45,9 @@ class _AnimatedRadialChartExampleState
     labelColor = dialColor;
 
     List<CircularStackEntry> data = <CircularStackEntry>[
-      new CircularStackEntry(
+      CircularStackEntry(
         <CircularSegmentEntry>[
-          new CircularSegmentEntry(
+          CircularSegmentEntry(
             value,
             dialColor,
             rankKey: 'percentage',
@@ -63,9 +60,9 @@ class _AnimatedRadialChartExampleState
     if (value > 100) {
       labelColor = Colors.green[200];
 
-      data.add(new CircularStackEntry(
+      data.add(CircularStackEntry(
         <CircularSegmentEntry>[
-          new CircularSegmentEntry(
+          CircularSegmentEntry(
             value - 100,
             Colors.green[200],
             rankKey: 'percentage',
@@ -80,20 +77,17 @@ class _AnimatedRadialChartExampleState
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _labelStyle = Theme
-        .of(context)
-        .textTheme
-        .title
-        .merge(new TextStyle(color: labelColor));
+    TextStyle _labelStyle =
+        Theme.of(context).textTheme.headline6.merge(TextStyle(color: labelColor));
 
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: const Text('Percentage Dial'),
       ),
-      body: new Column(
+      body: Column(
         children: <Widget>[
-          new Container(
-            child: new AnimatedCircularChart(
+          Container(
+            child: AnimatedCircularChart(
               key: _chartKey,
               size: _chartSize,
               initialChartData: _generateChartData(value),
@@ -104,17 +98,17 @@ class _AnimatedRadialChartExampleState
               labelStyle: _labelStyle,
             ),
           ),
-          new Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              new RaisedButton(
+              RaisedButton(
                 onPressed: _decrement,
                 child: const Icon(Icons.remove),
                 shape: const CircleBorder(),
                 color: Colors.red[200],
                 textColor: Colors.white,
               ),
-              new RaisedButton(
+              RaisedButton(
                 onPressed: _increment,
                 child: const Icon(Icons.add),
                 shape: const CircleBorder(),

@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_circular_chart/src/circular_chart.dart';
-import 'package:flutter_circular_chart/src/entry.dart';
-import 'package:flutter_circular_chart/src/painter.dart';
+import 'package:flutter_circular_chart_two/src/circular_chart.dart';
+import 'package:flutter_circular_chart_two/src/entry.dart';
+import 'package:flutter_circular_chart_two/src/painter.dart';
 
 // The default chart tween animation duration.
 const Duration _kDuration = const Duration(milliseconds: 300);
@@ -113,17 +113,16 @@ class AnimatedCircularChart extends StatefulWidget {
   /// ```dart
   /// AnimatedCircularChartState animatedCircularChart = AnimatedCircularChart.of(context);
   /// ```
-  static AnimatedCircularChartState of(BuildContext context,
-      {bool nullOk: false}) {
+  static AnimatedCircularChartState of(BuildContext context, {bool nullOk: false}) {
     assert(context != null);
     assert(nullOk != null);
 
-    final AnimatedCircularChartState result = context
-        .ancestorStateOfType(const TypeMatcher<AnimatedCircularChartState>());
+    final AnimatedCircularChartState result =
+        context.findAncestorStateOfType<AnimatedCircularChartState>();
 
     if (nullOk || result != null) return result;
 
-    throw new FlutterError(
+    throw FlutterError(
         'AnimatedCircularChart.of() called with a context that does not contain a AnimatedCircularChart.\n'
         'No AnimatedCircularChart ancestor could be found starting from the context that was passed to AnimatedCircularChart.of(). '
         'This can happen when the context provided is from the same StatefulWidget that '
@@ -133,7 +132,7 @@ class AnimatedCircularChart extends StatefulWidget {
   }
 
   @override
-  AnimatedCircularChartState createState() => new AnimatedCircularChartState();
+  AnimatedCircularChartState createState() => AnimatedCircularChartState();
 }
 
 /// The state for a circular chart that animates when its data is updated.
@@ -144,9 +143,9 @@ class AnimatedCircularChart extends StatefulWidget {
 /// can refer to the [AnimatedCircularChart]'s state with a global key:
 ///
 /// ```dart
-/// GlobalKey<AnimatedCircularChartState> chartKey = new GlobalKey<AnimatedCircularChartState>();
+/// GlobalKey<AnimatedCircularChartState> chartKey = GlobalKey<AnimatedCircularChartState>();
 /// ...
-/// new AnimatedCircularChart(key: chartKey, ...);
+/// AnimatedCircularChart(key: chartKey, ...);
 /// ...
 /// chartKey.currentState.updateData(newData);
 /// ```
@@ -156,21 +155,21 @@ class AnimatedCircularChartState extends State<AnimatedCircularChart>
   AnimationController _animation;
   final Map<String, int> _stackRanks = <String, int>{};
   final Map<String, int> _entryRanks = <String, int>{};
-  final TextPainter _labelPainter = new TextPainter();
+  final TextPainter _labelPainter = TextPainter();
 
   @override
   void initState() {
     super.initState();
-    _animation = new AnimationController(
+    _animation = AnimationController(
       duration: widget.duration,
       vsync: this,
     );
 
     _assignRanks(widget.initialChartData);
 
-    _tween = new CircularChartTween(
-      new CircularChart.empty(chartType: widget.chartType),
-      new CircularChart.fromData(
+    _tween = CircularChartTween(
+      CircularChart.empty(chartType: widget.chartType),
+      CircularChart.fromData(
         size: widget.size,
         data: widget.initialChartData,
         chartType: widget.chartType,
@@ -188,8 +187,7 @@ class AnimatedCircularChartState extends State<AnimatedCircularChart>
   @override
   void didUpdateWidget(AnimatedCircularChart oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.holeLabel != widget.holeLabel ||
-        oldWidget.labelStyle != widget.labelStyle) {
+    if (oldWidget.holeLabel != widget.holeLabel || oldWidget.labelStyle != widget.labelStyle) {
       _updateLabelPainter();
     }
   }
@@ -217,10 +215,9 @@ class AnimatedCircularChartState extends State<AnimatedCircularChart>
 
   void _updateLabelPainter() {
     if (widget.holeLabel != null) {
-      TextStyle _labelStyle =
-          widget.labelStyle ?? Theme.of(context).textTheme.body2;
+      TextStyle _labelStyle = widget.labelStyle ?? Theme.of(context).textTheme.bodyText1;
       _labelPainter
-        ..text = new TextSpan(style: _labelStyle, text: widget.holeLabel)
+        ..text = TextSpan(style: _labelStyle, text: widget.holeLabel)
         ..textDirection = Directionality.of(context)
         ..textScaleFactor = MediaQuery.of(context).textScaleFactor
         ..layout();
@@ -235,9 +232,9 @@ class AnimatedCircularChartState extends State<AnimatedCircularChart>
     _assignRanks(data);
 
     setState(() {
-      _tween = new CircularChartTween(
+      _tween = CircularChartTween(
         _tween.evaluate(_animation),
-        new CircularChart.fromData(
+        CircularChart.fromData(
           size: widget.size,
           data: data,
           chartType: widget.chartType,
@@ -255,9 +252,9 @@ class AnimatedCircularChartState extends State<AnimatedCircularChart>
 
   @override
   Widget build(BuildContext context) {
-    return new CustomPaint(
+    return CustomPaint(
       size: widget.size,
-      painter: new AnimatedCircularChartPainter(
+      painter: AnimatedCircularChartPainter(
         _tween.animate(_animation),
         widget.holeLabel != null ? _labelPainter : null,
       ),

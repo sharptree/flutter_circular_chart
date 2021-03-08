@@ -31,25 +31,25 @@ Install the latest version [from pub](https://pub.dartlang.org/packages/flutter_
 Import the package:
 
 ```dart
-import 'package:flutter_circular_chart/flutter_circular_chart.dart';
+import 'package:flutter_circular_chart_two/flutter_circular_chart.dart';
 ```
 
 Create a [GlobalKey](https://docs.flutter.io/flutter/widgets/GlobalKey-class.html) to be able to access the chart and update its data:
 
 ```dart
-final GlobalKey<AnimatedCircularChartState> _chartKey = new GlobalKey<AnimatedCircularChartState>();
+final GlobalKey<AnimatedCircularChartState> _chartKey = GlobalKey<AnimatedCircularChartState>();
 ```
 
 Create chart data entry objects:
 
 ```dart
 List<CircularStackEntry> data = <CircularStackEntry>[
-  new CircularStackEntry(
+  CircularStackEntry(
     <CircularSegmentEntry>[
-      new CircularSegmentEntry(500.0, Colors.red[200], rankKey: 'Q1'),
-      new CircularSegmentEntry(1000.0, Colors.green[200], rankKey: 'Q2'),
-      new CircularSegmentEntry(2000.0, Colors.blue[200], rankKey: 'Q3'),
-      new CircularSegmentEntry(1000.0, Colors.yellow[200], rankKey: 'Q4'),
+      CircularSegmentEntry(500.0, Colors.red[200], rankKey: 'Q1'),
+      CircularSegmentEntry(1000.0, Colors.green[200], rankKey: 'Q2'),
+      CircularSegmentEntry(2000.0, Colors.blue[200], rankKey: 'Q3'),
+      CircularSegmentEntry(1000.0, Colors.yellow[200], rankKey: 'Q4'),
     ],
     rankKey: 'Quarterly Profits',
   ),
@@ -61,7 +61,7 @@ Create an `AnimatedCircularChart`, passing it the `_chartKey` and initial `data`
 ```dart
 @override
 Widget build(BuildContext context) {
-  return new AnimatedCircularChart(
+  return AnimatedCircularChart(
     key: _chartKey,
     size: const Size(300.0, 300.0),
     initialChartData: data,
@@ -75,12 +75,12 @@ Call `updateData` to animate the chart:
 ```dart
 void _cycleSamples() {
   List<CircularStackEntry> nextData = <CircularStackEntry>[
-    new CircularStackEntry(
+    CircularStackEntry(
       <CircularSegmentEntry>[
-        new CircularSegmentEntry(1500.0, Colors.red[200], rankKey: 'Q1'),
-        new CircularSegmentEntry(750.0, Colors.green[200], rankKey: 'Q2'),
-        new CircularSegmentEntry(2000.0, Colors.blue[200], rankKey: 'Q3'),
-        new CircularSegmentEntry(1000.0, Colors.yellow[200], rankKey: 'Q4'),
+        CircularSegmentEntry(1500.0, Colors.red[200], rankKey: 'Q1'),
+        CircularSegmentEntry(750.0, Colors.green[200], rankKey: 'Q2'),
+        CircularSegmentEntry(2000.0, Colors.blue[200], rankKey: 'Q3'),
+        CircularSegmentEntry(1000.0, Colors.yellow[200], rankKey: 'Q4'),
       ],
       rankKey: 'Quarterly Profits',
     ),
@@ -103,18 +103,18 @@ void _cycleSamples() {
 Example:
 
 ```dart
-new AnimatedCircularChart(
+AnimatedCircularChart(
   key: _chartKey,
   size: _chartSize,
   initialChartData: <CircularStackEntry>[
-    new CircularStackEntry(
+    CircularStackEntry(
       <CircularSegmentEntry>[
-        new CircularSegmentEntry(
+        CircularSegmentEntry(
           33.33,
           Colors.blue[400],
           rankKey: 'completed',
         ),
-        new CircularSegmentEntry(
+        CircularSegmentEntry(
           66.67,
           Colors.blueGrey[600],
           rankKey: 'remaining',
@@ -126,7 +126,7 @@ new AnimatedCircularChart(
   chartType: CircularChartType.Radial,
   percentageValues: true,
   holeLabel: '1/3',
-  labelStyle: new TextStyle(
+  labelStyle: TextStyle(
     color: Colors.blueGrey[600],
     fontWeight: FontWeight.bold,
     fontSize: 24.0,
@@ -152,18 +152,18 @@ new AnimatedCircularChart(
 Example:
 
 ```dart
-new AnimatedCircularChart(
+AnimatedCircularChart(
   key: _chartKey,
   size: _chartSize,
   initialChartData: <CircularStackEntry>[
-    new CircularStackEntry(
+    CircularStackEntry(
       <CircularSegmentEntry>[
-        new CircularSegmentEntry(
+        CircularSegmentEntry(
           33.33,
           Colors.blue[400],
           rankKey: 'completed',
         ),
-        new CircularSegmentEntry(
+        CircularSegmentEntry(
           66.67,
           Colors.blueGrey[600],
           rankKey: 'remaining',

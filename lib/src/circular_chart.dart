@@ -1,10 +1,10 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_circular_chart/src/animated_circular_chart.dart';
-import 'package:flutter_circular_chart/src/entry.dart';
-import 'package:flutter_circular_chart/src/stack.dart';
-import 'package:flutter_circular_chart/src/tween.dart';
+import 'package:flutter_circular_chart_two/src/animated_circular_chart.dart';
+import 'package:flutter_circular_chart_two/src/entry.dart';
+import 'package:flutter_circular_chart_two/src/stack.dart';
+import 'package:flutter_circular_chart_two/src/tween.dart';
 
 class CircularChart {
   static const double _kStackWidthFraction = 0.75;
@@ -20,7 +20,7 @@ class CircularChart {
   final SegmentEdgeStyle edgeStyle;
 
   factory CircularChart.empty({@required CircularChartType chartType}) {
-    return new CircularChart(<CircularChartStack>[], chartType);
+    return CircularChart(<CircularChartStack>[], chartType);
   }
 
   factory CircularChart.fromData({
@@ -35,38 +35,36 @@ class CircularChart {
     SegmentEdgeStyle edgeStyle,
   }) {
     final double _holeRadius = holeRadius ?? size.width / (2 + data.length);
-    final double stackDistance =
-        (size.width / 2 - _holeRadius) / (2 + data.length);
+    final double stackDistance = (size.width / 2 - _holeRadius) / (2 + data.length);
     final double stackWidth = stackDistance * _kStackWidthFraction;
     final double startRadius = stackDistance + _holeRadius;
 
-    List<CircularChartStack> stacks = new List<CircularChartStack>.generate(
+    List<CircularChartStack> stacks = List<CircularChartStack>.generate(
       data.length,
-      (i) => new CircularChartStack.fromData(
-            stackRanks[data[i].rankKey] ?? i,
-            data[i].entries,
-            entryRanks,
-            percentageValues,
-            startRadius + i * stackDistance,
-            stackWidth,
-            startAngle,
-          ),
+      (i) => CircularChartStack.fromData(
+        stackRanks[data[i].rankKey] ?? i,
+        data[i].entries,
+        entryRanks,
+        percentageValues,
+        startRadius + i * stackDistance,
+        stackWidth,
+        startAngle,
+      ),
     );
 
-    return new CircularChart(stacks, chartType, edgeStyle: edgeStyle);
+    return CircularChart(stacks, chartType, edgeStyle: edgeStyle);
   }
 }
 
 class CircularChartTween extends Tween<CircularChart> {
   CircularChartTween(CircularChart begin, CircularChart end)
-      : _stacksTween =
-            new MergeTween<CircularChartStack>(begin.stacks, end.stacks),
+      : _stacksTween = MergeTween<CircularChartStack>(begin.stacks, end.stacks),
         super(begin: begin, end: end);
 
   final MergeTween<CircularChartStack> _stacksTween;
 
   @override
-  CircularChart lerp(double t) => new CircularChart(
+  CircularChart lerp(double t) => CircularChart(
         _stacksTween.lerp(t),
         begin.chartType,
         edgeStyle: end.edgeStyle,
