@@ -1,3 +1,5 @@
+## [0.1.1] - 2021-03-08
+* removed deprecated call on `AnimatedCircularChartState`
 ## [0.1.0] - 2018-08-30
 
 * **Breaking change**. Adjusted Flutter SDK constraint to match beta (0.6.0).
