@@ -3,10 +3,9 @@
 # Flutter Circular Chart
 
 This library is a fork of the original [flutter_circular_chart](https://pub.dartlang.org/packages/flutter_circular_chart)
-This provides fix and will keep updating based on user PR
 
-A library for creating animated circular chart widgets with Flutter, inspired by [Zero to One with Flutter](https://medium.com/dartlang/zero-to-one-with-flutter-43b13fd7b354).
+This provides fix and will keep updating based on user PR, including help the migration to null-safety.
 
 ## Overview
-The original package provides the context
-[flutter_circular_chart](https://pub.dartlang.org/packages/flutter_circular_chart)
+The original package source can be found here: [flutter_circular_chart](https://pub.dartlang.org/packages/flutter_circular_chart)
+
