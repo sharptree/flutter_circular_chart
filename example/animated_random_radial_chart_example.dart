@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_circular_chart_two/flutter_circular_chart.dart';
+import 'package:flutter_circular_chart_two/flutter_circular_chart_two.dart';
 import 'dart:math' as Math;
 
 import 'color_palette.dart';
