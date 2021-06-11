@@ -1,73 +1,102 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_circular_chart_two/flutter_circular_chart_two.dart';
-import 'dart:math' as Math;
 
-import 'color_palette.dart';
+import 'animated_pie_chart_example.dart';
+import 'animated_radial_chart_example.dart';
+import 'animated_random_radial_chart_example.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: RandomizedRadialChartExample(),
-  ));
+  runApp(MyApp());
 }
 
-class RandomizedRadialChartExample extends StatefulWidget {
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
-  _RandomizedRadialChartExampleState createState() => _RandomizedRadialChartExampleState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // Try running your application with "flutter run". You'll see the
+        // application has a blue toolbar. Then, without quitting the app, try
+        // changing the primarySwatch below to Colors.green and then invoke
+        // "hot reload" (press "r" in the console where you ran "flutter run",
+        // or simply save your changes to "hot reload" in a Flutter IDE).
+        // Notice that the counter didn't reset back to zero; the application
+        // is not restarted.
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(title: 'Chart Demos'),
+    );
+  }
 }
 
-class _RandomizedRadialChartExampleState extends State<RandomizedRadialChartExample> {
-  final GlobalKey<AnimatedCircularChartState> _chartKey = GlobalKey<AnimatedCircularChartState>();
-  final _chartSize = const Size(300.0, 300.0);
-  final Math.Random random = Math.Random();
-  List<CircularStackEntry>? data;
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key, required this.title}) : super(key: key);
+
+
+
+  final String title;
 
   @override
-  void initState() {
-    super.initState();
-    data = _generateRandomData();
-  }
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
-  double value = 50.0;
-
-  void _randomize() {
-    setState(() {
-      data = _generateRandomData();
-      _chartKey.currentState!.updateData(data!);
-    });
-  }
-
-  List<CircularStackEntry> _generateRandomData() {
-    int stackCount = random.nextInt(10);
-    List<CircularStackEntry> data = List.generate(stackCount, (i) {
-      int segCount = random.nextInt(10);
-      List<CircularSegmentEntry> segments = List.generate(segCount, (j) {
-        Color randomColor = ColorPalette.primary.random(random);
-        return CircularSegmentEntry(random.nextDouble(), randomColor);
-      });
-      return CircularStackEntry(segments);
-    });
-
-    return data;
-  }
-
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Randomized radial data'),
+        title: Text(widget.title),
       ),
       body: Center(
-        child: AnimatedCircularChart(
-          key: _chartKey,
-          size: _chartSize,
-          initialChartData: data!,
-          chartType: CircularChartType.Radial,
+        child: Column(
+
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Try An Example',
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            RandomizedRadialChartExample()),
+                  );
+                },
+                child: Text('Randomized Radial Chart Example')),
+
+
+
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            AnimatedPieChartExample()),
+                  );
+                },
+                child: Text('Animated Pie Chart Example ')),     
+
+
+
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            AnimatedRadialChartExample()),
+                  );
+                },
+                child: Text('Animated Radial Chart Example')),                                  
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _randomize,
-        child: const Icon(Icons.refresh),
-      ),
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
