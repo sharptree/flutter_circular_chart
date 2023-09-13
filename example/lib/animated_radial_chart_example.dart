@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_chart_two/flutter_circular_chart_two.dart';
 
-
-
-
 class AnimatedRadialChartExample extends StatefulWidget {
   @override
   _AnimatedRadialChartExampleState createState() => _AnimatedRadialChartExampleState();
@@ -74,8 +71,7 @@ class _AnimatedRadialChartExampleState extends State<AnimatedRadialChartExample>
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _labelStyle =
-        Theme.of(context).textTheme.headline6!.merge(TextStyle(color: labelColor));
+    TextStyle _labelStyle = Theme.of(context).textTheme.titleLarge!.merge(TextStyle(color: labelColor));
 
     return Scaffold(
       appBar: AppBar(
@@ -98,19 +94,23 @@ class _AnimatedRadialChartExampleState extends State<AnimatedRadialChartExample>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              RaisedButton(
+              ElevatedButton(
                 onPressed: _decrement,
                 child: const Icon(Icons.remove),
-                shape: const CircleBorder(),
-                color: Colors.red[200],
-                textColor: Colors.white,
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  backgroundColor: Colors.red[200],
+                  foregroundColor: Colors.white,
+                ),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: _increment,
                 child: const Icon(Icons.add),
-                shape: const CircleBorder(),
-                color: Colors.blue[200],
-                textColor: Colors.white,
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  backgroundColor: Colors.blue[200],
+                  foregroundColor: Colors.white,
+                ),
               ),
             ],
           ),
